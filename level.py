@@ -102,7 +102,7 @@ class Level(object):
         self.sunlight_color = sf.Color(225,185,122)
     
     def add_tile(self, xtile, ytile, module_name):
-        tile = plugins.tiles[module_name].Tile(xtile, ytile)
+        tile = plugins.get_tile(module_name).Tile(xtile, ytile)
         self._tiles[xtile][ytile] = tile
         
     def update(self):
