@@ -1,0 +1,50 @@
+(Feel free to debate any of these with me if you disagree)
+Useful Reading
+http://wiki.python.org/moin/TimeComplexity
+
+Official
+1. Use 4 spaces for tabs.
+2. Variable and function names are lowercase, if needed add an underscore.
+    ex. xcoord
+        firstname
+        entire_entry
+        
+3. Classes use PascalCase (ex PascalCase).
+4. Constants should use all uppercase with words seperated by underscore.
+
+My conventions.
+Classes
+
+1. Variables you shouldn't fuck with outside the class should begin with
+   an underscore. There is a python private convention which involves
+   using two leading underscores, but I think that's gross. Most people
+   just use one leading underscore. Python's idea is that we're adults
+   we should be able to not touch variables that shouldn't be touched.
+   
+2. Getters/Setters should not be used, in favor of properties instead.
+   Class variables should start as public, then we can use properties
+   and make them private later.
+
+3. All classes must extend the object class. This allows for properties
+   to be used.
+    ex. class Light(object):
+            ...
+            
+Imports
+
+1. Never ever import using wildcards (ex from mymodule import *).
+2. When importing a class use "from mymodule import myclass"
+3. When importing a built in library put it at the top of the file.
+4. When importing a PyQuester module/class always put it at the bottom
+   unless it is needed for constant definitions. This is done to avoid
+   cyclic import problems. The exception to this rule is main.py.
+
+General
+1. All python filenames should be lowercase.
+2. I personally do not like multiline comments """ multiline! """ but am
+   open to debate about them.
+3. Booleans should be is_something or has_something.
+4. Comments should be of the following format:
+   # This is a comment.
+   NOT
+   #this is a comment.
