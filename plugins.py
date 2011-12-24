@@ -38,3 +38,5 @@ def load(dictionary, folder):
         dictionary[mod.__name__] = mod
 
 import constants
+
+    
