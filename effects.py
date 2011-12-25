@@ -1,20 +1,29 @@
+# A base for the effect plugin system. An Effect is essentially an emitter
+# tied to a particle effect. Plugins can extend the effect class to create
+# unique effects.
+
 if __name__ == '__main__':
     import main
     main.main()
 
-
-
 import sf
+
+
 
 # Basic container class for a particle.
 class Particle(object):
     
     def __init__(self, texture):
         
+        # Holds drawing options such as size, color,
+        # texture, and blend mode.
         self.sprite = sf.Sprite(texture)
         
+        # When this value is 0 or less, the particle gets murdered.
+        # Brutally. 
         self.life = 0
         
+        # Added to the position every tick.
         self.x_velocity = 0.0
         self.y_velocity = 0.0
         
@@ -85,7 +94,7 @@ class Effect(object):
             
             window.draw(particle.sprite)
         
-        
+  
 import camera
 import media
             

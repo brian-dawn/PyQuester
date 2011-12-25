@@ -3,8 +3,8 @@
 # go through. They also have functions which allow us to get the tile coordinates of
 # the corners of the viewport. This allows us to easily grab a chunk of tiles to draw.
 #
-#
-#
+# Whenever something is drawn to the screen, subtract the camera.x and camera.y from
+# the end positions.
 
 
 

@@ -47,4 +47,4 @@ General
 4. Comments should be of the following format:
    # This is a comment.
    NOT
-   #this is a comment.
+   #this is supposedly a comment.

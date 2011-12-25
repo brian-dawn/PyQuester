@@ -2,11 +2,10 @@ import sf
 
 import effects
 
+ID = 3464
 
 # An example of an effect plugin.
 class Effect(effects.Effect):
-    
-    ID = 19242829
     
     def __init__(self, x, y):
         super(Effect, self).__init__(x, y)

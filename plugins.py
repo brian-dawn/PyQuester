@@ -1,11 +1,7 @@
-# This file will dynamically load plugins, this should make
-# the game much easier to mod, they can extend classes in new
-# python files then it dynamically finds and loads them.
-
-# For now don't use this keep it simple.
-# Or we populate a dictionary with an integer id
-# I think this should be done, because then we can simply say
-# level.add_tile(x, y, "grass")
+# Plugins allow us to dynamically load modules that we, or users write.
+# It registers ID codes associated with each plugin which can be used
+# later for network transfer. We can also retrieve modules using
+# the functions found in this file.
 
 if __name__ == '__main__':
     import main
@@ -16,8 +12,15 @@ import os.path
 import imp
 import sys
 
+# Dictionary of all tile plugins.
 tiles = {}
+
+# Dictionary of all effect plugins.
 effects = {}
+
+# Dictionary of all plugins ids, used for network handling.
+ids = {}
+
 
 # Request a tile module. If it's not found error.
 def get_tile(key):
@@ -50,7 +53,46 @@ def load(dictionary, folder):
     
     for mod in imported_modules:
         print "imported", mod.__name__, "into", folder
+        
+        # Insert the module into the passed in dictionary.
+        if mod.__name__ in dictionary:
+            print "error:", mod.__name__, "already exists."
+            sys.exit(0)
         dictionary[mod.__name__] = mod
+        
+        # Register the modules ID.
+        # If ID is not defined in the module notify and exit.
+        if not "ID" in dir(mod):
+            print "error: ID is not defined in", mod.__name__, ("(" + folder + ")")
+            sys.exit(0)
+        
+        _register_id(mod.ID, mod.__name__)
+
+
+    
+# Register a unique integer ID system for all imported plugins.
+
+# For example, I make a new sword class, it has the ID of 5. If the server
+# tells me that I picked up a 5, we can do a lookup to see that it was
+# a sword. Furthermore if there are any special properties that the sword
+# had to send over the network we can call the sword classes packing/unpacking
+# routine on the bytes.
+
+# None of this is really implemented yet, but we will need it once we introduce
+# networking into the mix.
+def _register_id(id, module_name):
+    
+    # id must be of the int type and nothing else!
+    if not isinstance(id, int):
+        print "error: ID must be an integer in", module_name
+        sys.exit(0)
+    
+    # Check to make sure there isn't a duplicate ID.
+    if id in ids:
+        print "error: conflicting IDs in", module_name, "and", ids[id]
+        sys.exit(0)
+    ids[id] = module_name
+
 
 
 
