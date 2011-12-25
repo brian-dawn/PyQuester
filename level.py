@@ -1,4 +1,7 @@
-#This is akin to World only it only handles one z-level.
+if __name__ == '__main__':
+    import main
+    main.main()
+
 import sf
 import math
 
@@ -33,35 +36,35 @@ class Level(object):
         for i in xrange(10,16):
             for j in xrange(10,16):
                 self._tiles[i][j].is_under_sky = False
-                self._tiles[i][j]._set_texture(media.floor_texture)
+                self._tiles[i][j]._set_texture(media.get_texture("b"))
                 
                 
         for i in xrange(19,36):
             for j in xrange(19,36):
                 self._tiles[i][j].is_under_sky = False
-                self._tiles[i][j]._set_texture(media.floor_texture)
+                self._tiles[i][j]._set_texture(media.get_texture("b"))
         
           
         for i in xrange(10, 16):
             self._tiles[i][10].is_light_blocking = True
             self._tiles[i][10].is_under_sky = False
-            self._tiles[i][10]._set_texture(media.tile_texture)
+            self._tiles[i][10]._set_texture(media.get_texture("tile"))
             
             self._tiles[i][16].is_light_blocking = True
             self._tiles[i][16].is_under_sky = False
-            self._tiles[i][16]._set_texture(media.tile_texture)
+            self._tiles[i][16]._set_texture(media.get_texture("tile"))
             
         for i in xrange(10, 17):
             self._tiles[10][i].is_light_blocking = True
             self._tiles[10][i].is_under_sky = False
-            self._tiles[10][i]._set_texture(media.tile_texture)
+            self._tiles[10][i]._set_texture(media.get_texture("tile"))
             
             self._tiles[16][i].is_light_blocking = True
             self._tiles[16][i].is_under_sky = False
-            self._tiles[16][i]._set_texture(media.tile_texture)
+            self._tiles[16][i]._set_texture(media.get_texture("tile"))
         
         self._tiles[10][15].is_light_blocking = False
-        self._tiles[10][15]._set_texture(media.floor_texture)
+        self._tiles[10][15]._set_texture(media.get_texture("b"))
         self.add_tile(1, 1, "grass")
         
         

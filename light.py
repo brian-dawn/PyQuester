@@ -1,3 +1,8 @@
+
+if __name__ == '__main__':
+    import main
+    main.main()
+
 import math
 import sf
 
@@ -150,6 +155,7 @@ class Light(object):
                 self._place_light(xcoord-1, ycoord-1, dist+constants.sqrt2, base_intensity)
                 self._place_light(xcoord-1, ycoord+1, dist+constants.sqrt2, base_intensity)
                 self._place_light(xcoord+1, ycoord-1, dist+constants.sqrt2, base_intensity)
+
 
 import camera
 import media

@@ -31,7 +31,8 @@ def main():
     # Load the tiles folder.
     media.load_textures()
     plugins.load(plugins.tiles, "tiles")
-            
+    plugins.load(plugins.effects, "effects")
+    
     window.framerate_limit = 60
     window.vertical_sync_enabled = True
     running = True
@@ -45,7 +46,8 @@ def main():
     # Camera variables.
     speed = 10
     
-
+    em = plugins.get_effect("fire").Effect(0, 0)
+    
     level = Level()
     
     while running:
@@ -82,6 +84,8 @@ def main():
         t.color = sf.Color(155,55,55);
         window.draw(t)
         
+        em.update()
+        em.draw(window)
         
         window.display()
         
@@ -92,7 +96,8 @@ def main():
             fps = frame_counter
             old_time = new_time
             frame_counter = 0
- 
+            
+        
 
     window.close()
 

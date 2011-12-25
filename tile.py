@@ -1,3 +1,7 @@
+if __name__ == '__main__':
+    import main
+    main.main()
+
 import random
 import sf
 
@@ -29,7 +33,7 @@ class Tile(object):
         self.was_baked = False
         
         self._sprite = None
-        self._set_texture(media.grass_texture)
+        self._set_texture(media.get_texture("tilegrass2"))
         
 
         
