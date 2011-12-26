@@ -33,6 +33,7 @@ def main():
     plugins.load(plugins.tiles, "tiles")
     plugins.load(plugins.effects, "effects")
     plugins.load(plugins.lights, "lights")
+    plugins.load(plugins.workers, "workers", needs_id=False)
     
     window.framerate_limit = 60
     window.vertical_sync_enabled = True
@@ -50,7 +51,7 @@ def main():
     em = plugins.get_effect("fire").Effect(0, 0)
     #print dir(em)
     level = Level()
-    
+    plugins.get_worker("sample_worker").crap_work(level, 2, "stone_wall")
     while running:
         for event in window.iter_events():
             if event.type == sf.Event.CLOSED:

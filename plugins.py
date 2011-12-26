@@ -28,6 +28,9 @@ tiles = {}
 # Dictionary of all effect plugins.
 effects = {}
 
+# Dictionary of all worker plugins.
+workers = {}
+
 # Dictionary of all plugins ids, used for network handling.
 ids = {}
 
@@ -56,8 +59,17 @@ def get_light(key):
         sys.exit(0)
     return lights[key]
     
+# Request a light module. If it's not found error.
+def get_worker(key):
+    
+    if not key in workers:
+        print "error: worker", key, "not found"
+        sys.exit(0)
+    return workers[key]
+
+    
 # Loads a folder of modules (python files) into a dictionary.
-def load(dictionary, folder):
+def load(dictionary, folder, needs_id=True):
     
     plugin_path = constants.root_path + "/plugins/" + folder
 
@@ -82,11 +94,12 @@ def load(dictionary, folder):
         
         # Register the modules ID.
         # If ID is not defined in the module notify and exit.
-        if not "ID" in dir(mod):
-            print "error: ID is not defined in", mod.__name__, ("(" + folder + ")")
-            sys.exit(0)
+        if needs_id:
+            if not "ID" in dir(mod):
+                print "error: ID is not defined in", mod.__name__, ("(" + folder + ")")
+                sys.exit(0)
         
-        _register_id(mod.ID, mod.__name__)
+            _register_id(mod.ID, mod.__name__)
 
 
     
