@@ -3,6 +3,13 @@
 # later for network transfer. We can also retrieve modules using
 # the functions found in this file.
 
+# We can call the module as though it were imported by, for example
+# using get_tile("grass").Tile() instead of
+# import grass
+# grass.Tile()
+# Much simpler and easier for mods because we can call it with a string
+# rather than having to modify some higher level python file.
+
 if __name__ == '__main__':
     import main
     main.main()
@@ -11,6 +18,9 @@ import os
 import os.path
 import imp
 import sys
+
+# Dictionary of all light plugins.
+lights = {}
 
 # Dictionary of all tile plugins.
 tiles = {}
@@ -24,6 +34,7 @@ ids = {}
 
 # Request a tile module. If it's not found error.
 def get_tile(key):
+    
     if not key in tiles:
         print "error: tile", key, "not found"
         sys.exit(0)
@@ -31,14 +42,23 @@ def get_tile(key):
    
 # Request an effect module. If it's not found error.
 def get_effect(key):
+    
     if not key in effects:
         print "error: effect", key, "not found" 
         sys.exit(0)
     return effects[key]
     
+# Request a light module. If it's not found error.
+def get_light(key):
+    
+    if not key in lights:
+        print "error: light", key, "not found"
+        sys.exit(0)
+    return lights[key]
     
 # Loads a folder of modules (python files) into a dictionary.
 def load(dictionary, folder):
+    
     plugin_path = constants.root_path + "/plugins/" + folder
 
     # List comprehensions! Can probably add rule here to allow only .pyc

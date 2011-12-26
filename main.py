@@ -32,6 +32,7 @@ def main():
     media.load_textures()
     plugins.load(plugins.tiles, "tiles")
     plugins.load(plugins.effects, "effects")
+    plugins.load(plugins.lights, "lights")
     
     window.framerate_limit = 60
     window.vertical_sync_enabled = True
@@ -47,7 +48,7 @@ def main():
     speed = 10
     
     em = plugins.get_effect("fire").Effect(0, 0)
-    
+    #print dir(em)
     level = Level()
     
     while running:
@@ -76,7 +77,7 @@ def main():
         level.update()
         level.draw(window)
         
-        
+        # Calculate mouse coordinates.
         xp = int(sf.Mouse.get_position(window)[0] + camera.x)
         yp = int(sf.Mouse.get_position(window)[1] + camera.y)
         # Draw fps text.

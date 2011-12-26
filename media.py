@@ -8,6 +8,9 @@ import sys
 
 textures = {}
 
+# Retrieve a texture based on the key.
+# ie. if tile.png was loaded, call
+# get_texture("tile")
 def get_texture(key):
     if not key in textures:
         print "error texture", key, "not loaded"
@@ -24,7 +27,13 @@ def load_textures():
         if fname.endswith(".png") or fname.endswith(".jpg") or fname.endswith(".tga")]
 
     for img in files:
-        textures[img[:-4]] = sf.Texture.load_from_file(images_path + "/" + img)
-        print "loaded", img, "as", img[:-4]
+        key = img[:-4]
+        
+        if key in textures:
+            print "error: conflicting key in textures", key
+            sys.exit(0)
+            
+        textures[key] = sf.Texture.load_from_file(images_path + "/" + img)
+        print "loaded", img, "as", key
 
 import constants

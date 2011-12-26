@@ -35,37 +35,9 @@ class Level(object):
         # Test delete this when sunlight is working.
         for i in xrange(10,16):
             for j in xrange(10,16):
-                self._tiles[i][j].is_under_sky = False
-                self._tiles[i][j]._set_texture(media.get_texture("b"))
+                self.set_tile(i, j, "stone_floor")
                 
-                
-        for i in xrange(19,36):
-            for j in xrange(19,36):
-                self._tiles[i][j].is_under_sky = False
-                self._tiles[i][j]._set_texture(media.get_texture("b"))
-        
-          
-        for i in xrange(10, 16):
-            self._tiles[i][10].is_light_blocking = True
-            self._tiles[i][10].is_under_sky = False
-            self._tiles[i][10]._set_texture(media.get_texture("tile"))
-            
-            self._tiles[i][16].is_light_blocking = True
-            self._tiles[i][16].is_under_sky = False
-            self._tiles[i][16]._set_texture(media.get_texture("tile"))
-            
-        for i in xrange(10, 17):
-            self._tiles[10][i].is_light_blocking = True
-            self._tiles[10][i].is_under_sky = False
-            self._tiles[10][i]._set_texture(media.get_texture("tile"))
-            
-            self._tiles[16][i].is_light_blocking = True
-            self._tiles[16][i].is_under_sky = False
-            self._tiles[16][i]._set_texture(media.get_texture("tile"))
-        
-        self._tiles[10][15].is_light_blocking = False
-        self._tiles[10][15]._set_texture(media.get_texture("b"))
-        self.add_tile(1, 1, "grass")
+        self.set_tile(1, 1, "grass")
         
         
         
@@ -104,7 +76,7 @@ class Level(object):
         self.ambient_color = sf.Color.BLACK
         self.sunlight_color = sf.Color(225,185,122)
     
-    def add_tile(self, xtile, ytile, module_name):
+    def set_tile(self, xtile, ytile, module_name):
         tile = plugins.get_tile(module_name).Tile(xtile, ytile)
         self._tiles[xtile][ytile] = tile
         

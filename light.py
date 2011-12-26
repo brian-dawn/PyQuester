@@ -43,6 +43,7 @@ class Light(object):
         self._ycoord = y_position / Light.SCALE
 
     def __init__(self, level, x, y, radius, color=sf.Color.WHITE):
+        
         # Pixel map to be used when calculating the light.
         self._light_pixelmap = sf.Image(radius*2+1, radius*2+1, sf.Color(0,0,0,0)) 
         
@@ -118,6 +119,7 @@ class Light(object):
     # The distance to reach a node is stored in the red channel (temporarily).
     # The intensity of the light is stored in the alpha channel.
     def _place_light(self, xcoord, ycoord, dist, base_intensity):
+        
         # Coordinates for the pixel the light is currently on.
         x = int(xcoord - self._xcoord + self.radius)
         y = int(ycoord - self._ycoord + self.radius)
@@ -145,6 +147,7 @@ class Light(object):
                 return None
             
             if not tile.is_light_blocking or dist == 0:
+                
                 # Handle the subtiles adjacent to the current one.
                 self._place_light(xcoord+1, ycoord, dist+1, base_intensity)
                 self._place_light(xcoord-1, ycoord, dist+1, base_intensity)
