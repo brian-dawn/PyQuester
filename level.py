@@ -40,6 +40,8 @@ class Level(object):
         self.set_tile(1, 1, "grass")
         
         
+        add_building(self, 10, 2, x_size=8)
+        
         
         # Used to determine if we need to bake more tiles because
         # the camera has moved too far.
@@ -248,6 +250,7 @@ class Level(object):
 #from tiles.grass import Grass
 #from tiles import grass
 
+from buildings import add_building
 from light import Light
 from tile import Tile
 import camera
