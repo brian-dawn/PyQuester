@@ -1,11 +1,27 @@
 # PyQuester
 #
 
+# Must be done (on Windows) before we append dlls to the system path.
+import constants
+
+# Handle Windows, append dlls to the system path.
+import os
+import sys
+import inspect
+if os.name == "nt":
+    cmd_folder = os.path.abspath(os.path.split(inspect.getfile( inspect.currentframe() ))[0]) + \
+                 "\\bin\windows"
+    
+    if cmd_folder not in sys.path:
+        
+        sys.path.insert(0, cmd_folder)
+        os.environ['PATH'] = cmd_folder + ';' + os.environ['PATH']
+
 import datetime
 import random
 import sf
 
-import constants
+
 # Seed the random number generator before we import anything (just in case).
 random.seed(7)
 
