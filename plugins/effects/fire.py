@@ -29,7 +29,7 @@ class Effect(effects.Effect):
         
         p.life = 80
         #p.sprite.blend_mode = sf.BlendMode.ADD
-        p.sprite.color = sf.Color(255,5,155)
+        p.sprite.color = sf.Color(255,155,5)
         p.sprite.scale(2, 2)
 
         p.x_velocity = random.randrange(-100, 100) / 100.0

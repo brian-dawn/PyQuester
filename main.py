@@ -26,7 +26,7 @@ import sf
 random.seed(7)
 
 # We have to create the window as we need a rendering context for loading textures.
-# This can likely be cleaned up later by controling all the main imports down below.
+# This can likely be cleaned up later by controlling all the main imports down below.
 width = 800
 height = 600
 window = sf.RenderWindow(sf.VideoMode(width, height),
@@ -118,7 +118,8 @@ def main():
         
 
     window.close()
-
+    print "exiting gracefully."
+    sys.exit(0)
 
 if __name__ == '__main__':
     main()
