@@ -94,7 +94,11 @@ def main():
             camera.x = camera.x + speed           
         
         print client.state, client.CONNECTED, client.ERRORED, client.DISCONNECTED
-        client.update()
+        try:
+            client.update()
+        except RuntimeError:
+            pass
+            
         if (client.state == client.CONNECTED):
             print client.latency
                              
