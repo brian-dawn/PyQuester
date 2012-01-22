@@ -236,10 +236,10 @@ class Level(object):
                 self._propagate_sunlight(xcoord-1, ycoord, dist+1, base_intensity)
                 
                 # Handle diagonals.
-                self._propagate_sunlight(xcoord+1, ycoord+1, dist+constants.sqrt2, base_intensity)
-                self._propagate_sunlight(xcoord-1, ycoord-1, dist+constants.sqrt2, base_intensity)
-                self._propagate_sunlight(xcoord+1, ycoord-1, dist+constants.sqrt2, base_intensity)
-                self._propagate_sunlight(xcoord-1, ycoord+1, dist+constants.sqrt2, base_intensity)
+                self._propagate_sunlight(xcoord+1, ycoord+1, dist+constants.SQRT2, base_intensity)
+                self._propagate_sunlight(xcoord-1, ycoord-1, dist+constants.SQRT2, base_intensity)
+                self._propagate_sunlight(xcoord+1, ycoord-1, dist+constants.SQRT2, base_intensity)
+                self._propagate_sunlight(xcoord-1, ycoord+1, dist+constants.SQRT2, base_intensity)
 
             
         

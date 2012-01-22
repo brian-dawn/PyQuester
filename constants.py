@@ -2,6 +2,7 @@ import math
 import sys
 import os
 
-sqrt2 = math.sqrt(2)
-root_path = sys.path[0]
+PORT =3566
+SQRT2 = math.sqrt(2)
+ROOT_PATH = sys.path[0]
 

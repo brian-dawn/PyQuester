@@ -20,7 +20,7 @@ def get_texture(key):
 # Loads a folder of images (python files) into a dictionary.
 def load_textures():
 
-    images_path = constants.root_path + "/media"
+    images_path = constants.ROOT_PATH + "/media"
 
     # List comprehensions!
     files = [fname for fname in os.listdir(images_path) \

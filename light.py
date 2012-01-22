@@ -152,10 +152,10 @@ class Light(object):
                 self._place_light(xcoord, ycoord-1, dist+1, base_intensity)
 
                 # Handle the diagonals.
-                self._place_light(xcoord+1, ycoord+1, dist+constants.sqrt2, base_intensity)
-                self._place_light(xcoord-1, ycoord-1, dist+constants.sqrt2, base_intensity)
-                self._place_light(xcoord-1, ycoord+1, dist+constants.sqrt2, base_intensity)
-                self._place_light(xcoord+1, ycoord-1, dist+constants.sqrt2, base_intensity)
+                self._place_light(xcoord+1, ycoord+1, dist+constants.SQRT2, base_intensity)
+                self._place_light(xcoord-1, ycoord-1, dist+constants.SQRT2, base_intensity)
+                self._place_light(xcoord-1, ycoord+1, dist+constants.SQRT2, base_intensity)
+                self._place_light(xcoord+1, ycoord-1, dist+constants.SQRT2, base_intensity)
 
 
 import camera

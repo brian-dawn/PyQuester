@@ -20,6 +20,7 @@ if os.name == "nt":
 import datetime
 import random
 import sf
+import legume
 
 
 # Seed the random number generator before we import anything (just in case).
@@ -57,7 +58,11 @@ def main():
     window.vertical_sync_enabled = True
     running = True
 
-            
+    # Connect to server.
+    client = legume.Client()
+    client.connect(("localhost", constants.PORT))
+
+    
     # FPS variables.
     frame_counter = 0
     fps = 0
@@ -87,8 +92,12 @@ def main():
             camera.x = camera.x - speed
         if sf.Keyboard.is_key_pressed(sf.Keyboard.RIGHT):
             camera.x = camera.x + speed           
-            
-                 
+        
+        print client.state, client.CONNECTED, client.ERRORED, client.DISCONNECTED
+        client.update()
+        if (client.state == client.CONNECTED):
+            print client.latency
+                             
         window.clear(sf.Color.BLACK)
         #window.draw(sprite)
         

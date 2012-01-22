@@ -68,7 +68,7 @@ def get_worker(key):
 # Loads a folder of modules (python files) into a dictionary.
 def load(dictionary, folder, needs_id=True):
     
-    plugin_path = constants.root_path + "/plugins/" + folder
+    plugin_path = constants.ROOT_PATH + "/plugins/" + folder
 
     # List comprehensions! Can probably add rule here to allow only .pyc
     # files, but for not lets only let people distribute mods with original source.
