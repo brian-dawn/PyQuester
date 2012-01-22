@@ -1,7 +1,7 @@
 
 from subprocess import Popen
 
-client = Popen(["python", "main.py"])
+client = Popen(["python", "client.py"])
 server = Popen(["python", "server.py"])
 
 client.wait()

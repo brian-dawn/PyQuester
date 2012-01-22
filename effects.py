@@ -2,9 +2,6 @@
 # tied to a particle effect. Plugins can extend the effect class to create
 # unique effects.
 
-if __name__ == '__main__':
-    import main
-    main.main()
 
 import sf
 

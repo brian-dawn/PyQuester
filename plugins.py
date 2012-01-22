@@ -10,9 +10,6 @@
 # Much simpler and easier for mods because we can call it with a string
 # rather than having to modify some higher level python file.
 
-if __name__ == '__main__':
-    import main
-    main.main()
 
 import os
 import os.path

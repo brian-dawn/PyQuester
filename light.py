@@ -1,8 +1,5 @@
 # Light to be a plugin system?
 # same with entity! omg!
-if __name__ == '__main__':
-    import main
-    main.main()
 
 import math
 import sf

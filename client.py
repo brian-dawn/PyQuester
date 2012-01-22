@@ -42,7 +42,7 @@ from tile import Tile
 from light import Light
 from level import Level
 
-import client
+
 
 
 def main():
