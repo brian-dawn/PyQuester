@@ -9,28 +9,21 @@ import socket
 import time
 
 import constants
-
+import networking
+import time
 
 
 
 def main():
-    host = "127.0.0.1"
-    addr = (host, constants.PORT)
-
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.setblocking(False)
-    #sock.settimeout(0)
-    sock.bind(addr)
+    networking.register_messages()
+    connection = networking.Connection(is_server=True)
     while True:
-        try:
-            data, addr = sock.recvfrom(4096)
-            print "Received message", data
-            sock.sendto( "server says hai", addr)
-        except Exception:
-            pass
+        connection.update()
+        time.sleep(.01)
         
         
-    sock.close()
     
 if __name__ == '__main__':
     main()
+
+

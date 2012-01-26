@@ -38,11 +38,12 @@ camera.height = height
 
 import media
 import plugins
+import networking
+import messages
 
 from tile import Tile
 from light import Light
 from level import Level
-
 
 
 
@@ -54,10 +55,13 @@ def main():
     plugins.load(plugins.lights, "lights")
     plugins.load(plugins.workers, "workers", needs_id=False)
     
+    networking.register_messages()
+    
     window.framerate_limit = 60
     window.vertical_sync_enabled = True
     running = True
 
+    """    
     ip = "127.0.0.1"
     addr = (ip, constants.PORT)
     # Connect to server.
@@ -65,6 +69,8 @@ def main():
                           socket.SOCK_DGRAM ) # UDP
     sock.setblocking(False)
     sock.sendto( "hai", addr)
+    """
+    connection = networking.Connection()
     
     # FPS variables.
     frame_counter = 0
@@ -89,6 +95,12 @@ def main():
         # Super basic camera controls.
         if sf.Keyboard.is_key_pressed(sf.Keyboard.DOWN):
             camera.y = camera.y + speed
+            
+            p = messages.PlayerJoin()
+            p.player_model_id = 283749753
+            p.player_name = "Fred"
+            connection.send(p)
+            
         if sf.Keyboard.is_key_pressed(sf.Keyboard.UP):
             camera.y = camera.y - speed
         if sf.Keyboard.is_key_pressed(sf.Keyboard.LEFT):
@@ -97,14 +109,14 @@ def main():
             camera.x = camera.x + speed           
         
         
-        try:
+        """        try:
             data, addr = sock.recvfrom(4096)
             print "Received message", data
 
         except Exception:
-            pass
+            pass"""
         
-        
+        connection.update()
         
         window.clear(sf.Color.BLACK)
         #window.draw(sprite)
