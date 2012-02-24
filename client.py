@@ -47,12 +47,13 @@ from tile import Tile
 from light import Light
 from level import Level
 
-
+"""
 actions = [] # Keep track of all recorded actions (one added each tick) untill we receive an update from the server.
              # Then we use this to replay all the actions the player took.
 last_x = last_y = 0
 last_tick = 0
 command_counter = 0
+"""
 def main():
     global actions, command_counter
     # Load the tiles folder.
@@ -119,6 +120,7 @@ def main():
         if sf.Keyboard.is_key_pressed(sf.Keyboard.D):
             direction = direction + vector.RIGHT 
             
+        """    
         connection.update()
         command_counter = command_counter + 1
         if not direction == old_direction:
@@ -157,7 +159,7 @@ def main():
         #print last_tick, command_counter 
 
         #print x_pos, y_pos
-        
+        """
         
         
         
@@ -179,8 +181,10 @@ def main():
         em.update()
         em.draw(window)
         
+        """
         rect = sf.Shape.rectangle(x_pos - camera.x, y_pos - camera.y, 50, 50, sf.Color.WHITE)
         window.draw(rect)
+        """
         
         window.display()
         
@@ -198,6 +202,7 @@ def main():
     print "exiting gracefully."
     sys.exit(0)
 
+"""
 def on_entity_update(m, connection):
     global last_x, last_y, actions, last_tick
 
@@ -217,6 +222,6 @@ def on_player_join(m, connection):
     print m.player_name, m.player_model_id
     
 messages.PlayerJoin.callback = on_player_join
-
+"""
 if __name__ == '__main__':
     main()
