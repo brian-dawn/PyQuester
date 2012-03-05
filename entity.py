@@ -15,7 +15,7 @@ but if it is, we can redesign the bitstring class to allow for more.
 
 
 # Just bags of data.
-class Component:
+class Component(object):
     ID = -1
     
 class PositionComponent(Component):
