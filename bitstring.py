@@ -7,7 +7,8 @@
 # components or systems but that should be ok.
 
 class BitString:
-    
+    SIZE = 64
+
     def __init__(self, *initial_elements):
         self.set = long(0)
         

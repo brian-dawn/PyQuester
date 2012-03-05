@@ -14,23 +14,21 @@ but if it is, we can redesign the bitstring class to allow for more.
 #http://www.reddit.com/r/gamedev/comments/pzdxv/how_do_you_structure_your_game_code_mvc/
 
 
-# Hey what if we use bitstrings for testing to see if an entity belongs to a system and other things.
-
 # Just bags of data.
 class Component:
-    ID = 2
+    ID = -1
     
-class PositionComponent:
+class PositionComponent(Component):
     ID = 1
     def __init__(self):
         self.x = 2
     
-class VelocityComponent:
+class VelocityComponent(Component):
     ID = 0
     
+# Base class new systems can extend from. A system operates on components.
 class System(object):
-    #ID # Do we want ID to pertain to specific instances of systems? maybe.
-    # we want it to say what Components any entity must have to be applied to this system.
+
     def _init(self):
         # This will be assigned by the SystemManager later.
         self.ID = -1
@@ -44,8 +42,9 @@ class System(object):
         # Map all components to this system.
         self.mappings()
         
+    # Override this method to handle new mappings.
     def mappings(self):
-        self.map_component_class(PositionComponent)
+        raise Exception("system " + self.__class__.__name__ + " has not defined mappings.")
         
     def _remove_entity(self, entity):
         self._entities.remove(entity)
@@ -56,12 +55,21 @@ class System(object):
     # Map what kind of components the system must have to gain control of an entity.
     def map_component_class(self, class_name):
 
+        # Ensure the component has ID overridden.
+        if class_name.ID == -1:
+            raise Exception(class_name.__name__ + " does not define ID.")
+
+        # Ensure ID fits within BitString range.
+        if not (class_name.ID >= 0 and class_name.ID < BitString.SIZE):
+            raise Exception(class_name.__name__ + " has an invalid ID must be [0..63].")
+
         self._component_bitstring.add_to_set(class_name.ID)
-        #self._mapped_components.append(class_name.__name__)
     
+    # Override this method to process entities.
     def process(self, entity):
         pass
         
+    # Process all components.
     def update(self):
         
         for entity in self._entities:
@@ -77,7 +85,8 @@ class MoveSystem(System):
     def process(self, entity):
         
         print entity.get_component(PositionComponent).x
-        
+  
+# Handles a collection of systems. Only one instance is needed.      
 class SystemManager:
     
     def __init__(self):
@@ -158,6 +167,8 @@ class Entity:
 
     # Add a component to the entity. Be sure to refresh afterwards.
     def add_component(self, component):
+
+        # Fairly certain we don't want two PositionComponents for example.
         if component.__class__.ID in self._components:
             raise Exception(component.__class__.__name__ + " already inside of entity!")
             
@@ -170,13 +181,12 @@ from bitstring import BitString
 
 
 sm = SystemManager()
-s1 = sm.add_system(System())
 s2 = sm.add_system(MoveSystem())
 
 e = Entity(sm)
 e.add_component(PositionComponent())
 e.add_component(VelocityComponent())
 e.refresh()
-e.kill()
+#e.kill()
 
 s2.update()
