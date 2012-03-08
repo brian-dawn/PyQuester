@@ -61,7 +61,8 @@ class System(object):
 
         # Ensure ID fits within BitString range.
         if not (class_name.ID >= 0 and class_name.ID < BitString.SIZE):
-            raise Exception(class_name.__name__ + " has an invalid ID must be [0..63].")
+            raise Exception(class_name.__name__ + " has an invalid ID must be [0.." \
+                + BitString.SIZE + "].")
 
         self._component_bitstring.add_to_set(class_name.ID)
     
@@ -147,7 +148,8 @@ class Entity:
     def refresh(self):
 
         # If the entity is already hooked in remove them, so we don't add them twice.
-        # This design can be optimized, but low priority.
+        # This design can be optimized, but low priority since we likely only refresh
+        # an entity once.
         if not self._old_component_bitstring.is_empty():
             self.kill()
                 
@@ -187,6 +189,7 @@ e = Entity(sm)
 e.add_component(PositionComponent())
 e.add_component(VelocityComponent())
 e.refresh()
+
 #e.kill()
 
 s2.update()

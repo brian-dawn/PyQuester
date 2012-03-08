@@ -7,6 +7,7 @@
 # components or systems but that should be ok.
 
 class BitString:
+    # Max size of bitstring.
     SIZE = 64
 
     def __init__(self, *initial_elements):
