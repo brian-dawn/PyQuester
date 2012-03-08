@@ -38,6 +38,10 @@ class System(object):
         
         # The bitstring that contains the components mapped to this system.
         self._component_bitstring = BitString()
+
+        # Stores the IDs of components mapped to it in a list. This allows us to quickly see if an
+        # entity belongs to the system.
+        self._component_list = []
         
         # Map all components to this system.
         self.mappings()
@@ -65,7 +69,8 @@ class System(object):
                 + BitString.SIZE + "].")
 
         self._component_bitstring.add_to_set(class_name.ID)
-    
+        self._component_list.append(class_name.ID)
+
     # Override this method to process entities.
     def process(self, entity):
         pass
@@ -158,7 +163,12 @@ class Entity:
         for system in self.system_manager._systems:
             
             # Add the entity if it maps correctly to the system.
-            if self._component_bitstring.contains_subset(system._component_bitstring):
+            does_map = True
+            for component_id in system._component_list:
+                if not self._component_bitstring.contains(component_id):
+                    does_map = False
+
+            if does_map:
                 system._add_entity(self)
                 self._systems.append(system)
 
