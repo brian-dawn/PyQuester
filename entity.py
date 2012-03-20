@@ -18,14 +18,6 @@ but if it is, we can redesign the bitstring class to allow for more.
 class Component(object):
     ID = -1
     
-class PositionComponent(Component):
-    ID = 1
-    def __init__(self):
-        self.x = 2
-    
-class VelocityComponent(Component):
-    ID = 0
-    
 # Base class new systems can extend from. A system operates on components.
 class System(object):
 
@@ -45,7 +37,7 @@ class System(object):
         
         # Map all components to this system.
         self.mappings()
-        
+
     # Override this method to handle new mappings.
     def mappings(self):
         raise Exception("system " + self.__class__.__name__ + " has not defined mappings.")
@@ -80,17 +72,6 @@ class System(object):
         
         for entity in self._entities:
             self.process(entity)
-
-class MoveSystem(System):
-    
-    def mappings(self):
-        
-        self.map_component_class(VelocityComponent)
-        self.map_component_class(PositionComponent)
-    
-    def process(self, entity):
-        
-        print entity.get_component(PositionComponent).x
   
 # Handles a collection of systems. Only one instance is needed.      
 class SystemManager:
@@ -190,7 +171,7 @@ class Entity:
         self._component_bitstring.add_to_set(component.ID)
 
 from bitstring import BitString
-
+"""
 
 sm = SystemManager()
 s2 = sm.add_system(MoveSystem())
@@ -203,3 +184,4 @@ e.refresh()
 #e.kill()
 
 s2.update()
+"""

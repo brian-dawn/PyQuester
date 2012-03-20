@@ -47,6 +47,9 @@ from tile import Tile
 from light import Light
 from level import Level
 
+from entity import SystemManager
+from components import *
+from systems import *
 """
 actions = [] # Keep track of all recorded actions (one added each tick) untill we receive an update from the server.
              # Then we use this to replay all the actions the player took.
@@ -63,7 +66,18 @@ def main():
     plugins.load(plugins.lights, "lights")
     plugins.load(plugins.workers, "workers", needs_id=False)
     
-    
+    system_manager = SystemManager()
+    player_control_system = system_manager.add_system(PlayerControlSystem())
+    move_system = system_manager.add_system(MoveSystem())
+    draw_system = system_manager.add_system(DrawSystem(window))
+
+    e = Entity(system_manager)
+    e.add_component(PositionComponent(100, 0))
+    e.add_component(VelocityComponent(0, 0))
+    e.add_component(PlayerControlComponent())
+    e.refresh()
+
+
     networking.register_messages()
     
     
@@ -110,16 +124,8 @@ def main():
             camera.x = camera.x + speed           
         
         
-        direction = 0
-        if sf.Keyboard.is_key_pressed(sf.Keyboard.S):
-            direction = direction + vector.DOWN           
-        if sf.Keyboard.is_key_pressed(sf.Keyboard.W):
-            direction = direction + vector.UP 
-        if sf.Keyboard.is_key_pressed(sf.Keyboard.A):
-            direction = direction + vector.LEFT 
-        if sf.Keyboard.is_key_pressed(sf.Keyboard.D):
-            direction = direction + vector.RIGHT 
-            
+        player_control_system.update()
+        move_system.update()
         """    
         connection.update()
         command_counter = command_counter + 1
@@ -169,6 +175,8 @@ def main():
         #Draw the tiles.
         level.update()
         level.draw(window)
+
+        draw_system.update()
         
         # Calculate mouse coordinates.
         xp = int(sf.Mouse.get_position(window)[0] + camera.x)

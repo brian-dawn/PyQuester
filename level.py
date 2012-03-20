@@ -34,12 +34,16 @@ class Level(object):
             for j in xrange(10,16):
                 self.set_tile(i, j, "stone_floor")
                 
-        self.set_tile(1, 1, "grass")
         
         
-        add_building(self, 10, 2, x_size=8)
         
-        
+        #add_building(self, 10, 2, x_size=8)
+        for y in range(10, 15):
+            self.set_tile(10, y, "stone_wall")
+
+        for x in range(10, 15):
+            self.set_tile(x, 10, "stone_wall")
+
         # Used to determine if we need to bake more tiles because
         # the camera has moved too far.
         self._old_camera_x = -1337
