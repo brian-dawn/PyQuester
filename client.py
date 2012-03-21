@@ -75,6 +75,7 @@ def main():
     e.add_component(PositionComponent(100, 0))
     e.add_component(VelocityComponent(0, 0))
     e.add_component(PlayerControlComponent())
+    e.add_component(DrawComponent(0))
     e.refresh()
 
 
@@ -174,9 +175,9 @@ def main():
         
         #Draw the tiles.
         level.update()
-        level.draw(window)
-
-        draw_system.update()
+        level.draw_tiles(window)
+        draw_system.draw_light_layer()
+        level.draw_lightmap(window)
         
         # Calculate mouse coordinates.
         xp = int(sf.Mouse.get_position(window)[0] + camera.x)

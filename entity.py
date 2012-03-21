@@ -41,12 +41,22 @@ class System(object):
     # Override this method to handle new mappings.
     def mappings(self):
         raise Exception("system " + self.__class__.__name__ + " has not defined mappings.")
-        
+    
+    # Fires when an entity gets added to the system. Can be overridden.
+    def register_entity(self, entity):
+        pass
+
+    # Fires when an entity gets removed from the system.
+    def unregister_entity(self, entity):
+        pass
+
     def _remove_entity(self, entity):
         self._entities.remove(entity)
+        self.unregister_entity(entity)
         
     def _add_entity(self, entity):
         self._entities.append(entity)
+        self.register_entity(entity)
         
     # Map what kind of components the system must have to gain control of an entity.
     def map_component_class(self, class_name):

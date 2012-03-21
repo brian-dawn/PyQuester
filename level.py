@@ -98,19 +98,17 @@ class Level(object):
                 for j in xrange(r[2]-t, r[3]+t):
                     self._bake_sunlight(i, j) 
         
-        
-    def draw(self, window):
-        """
-        Diffuse Drawing
-        """
-	    # Draw the tiles that are visible on the screen.
+    def draw_tiles(self, window):
+        # Draw the tiles that are visible on the screen.
         r = camera.tile_ranges()
         for i in xrange(r[0], r[1]):
             for j in xrange(r[2], r[3]):
                     tile = self.get_tile(i,j)
                     if not tile == None:
                         tile.draw(window)
-        
+
+    def draw_lightmap(self, window):
+
         """
         Lightmap Drawing
         """ 
