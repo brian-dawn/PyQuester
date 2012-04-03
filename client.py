@@ -68,22 +68,30 @@ def main():
     
     system_manager = SystemManager()
     player_control_system = system_manager.add_system(PlayerControlSystem())
-    move_system = system_manager.add_system(MoveSystem())
+    collision_system = system_manager.add_system(CollisionSystem())
+    move_system = system_manager.add_system(MoveSystem(collision_system))
     draw_system = system_manager.add_system(DrawSystem(window))
 
     e = Entity(system_manager)
-    e.add_component(PositionComponent(100, 0))
+    e.add_component(PositionComponent(0, 0))
     e.add_component(VelocityComponent(0, 0))
     e.add_component(PlayerControlComponent())
+    e.add_component(CollisionComponent(50, 50))
     e.add_component(DrawComponent(0))
     e.refresh()
 
+    for x in range(0, 290, 50):
+        e = Entity(system_manager)
+        e.add_component(PositionComponent(x+200, 0))
+        e.add_component(CollisionComponent(50, 50))
+        e.add_component(DrawComponent(0))
+        e.refresh()
 
     networking.register_messages()
     
     
-    window.framerate_limit = 60
-    window.vertical_sync_enabled = True
+    #window.framerate_limit = 60
+    #window.vertical_sync_enabled = True
     running = True
 
     old_direction = 0

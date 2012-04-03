@@ -165,8 +165,10 @@ class Entity:
 
     # Return a component that the entity contains based on the class.
     def get_component(self, component_class):
-        
-        return self._components[component_class.ID]
+        try:
+            return self._components[component_class.ID]
+        except:
+            return None
 
     # Add a component to the entity. Be sure to refresh afterwards.
     def add_component(self, component):
