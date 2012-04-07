@@ -1,5 +1,7 @@
 # Houses code for the various entity systems. These can't be plugins because we are limited to how many we can have
 # via bitstring.
+# TODO: Maybe we want to have tiles be entities, and level just be a system.
+# If they are going to have health we may want to do that... but for now this will work.
 import sf
 from entity import System, Entity
 from components import *
@@ -25,6 +27,7 @@ class PlayerControlSystem(System):
         velocity_comp.x = x * velocity_comp.speed
         velocity_comp.y = y * velocity_comp.speed
 
+# TODO: Do we want each level to have a collision
 class CollisionSystem(System):
 
 
@@ -46,6 +49,27 @@ class CollisionSystem(System):
         collision_comp_a = entity.get_component(CollisionComponent)
         position_comp_a = entity.get_component(PositionComponent)
 
+        # Handle collision with the level.
+        level = level_manager.get_level(self.level_z_index)
+        x = position_comp_a.x
+        y = position_comp_a.y
+        r = [int(x / Tile.SIZE), int((x+Tile.SIZE) / Tile.SIZE + 1), \
+             int(y / Tile.SIZE), int((y+Tile.SIZE) / Tile.SIZE + 1)]
+
+        for i in xrange(r[0], r[1]):
+            for j in xrange(r[2], r[3]):
+                    tile = level.get_tile(i,j)
+                    if not tile == None:
+                        if tile.has_collision:
+                            if util.rectangles_overlap(position_comp_a.x, position_comp_a.y, \
+                                                       collision_comp_a.width, collision_comp_a.height, \
+                                                       i * Tile.SIZE, j * Tile.SIZE, Tile.SIZE, Tile.SIZE):
+                                if boolean_response:
+                                    return True
+
+                          
+
+        # Handle collision with other entities.
         for entity_b in entity_list:
 
             collision_comp_b = entity_b.get_component(CollisionComponent)
@@ -144,3 +168,5 @@ class MoveSystem(System):
 
 import camera
 import util
+import level_manager
+from tile import Tile

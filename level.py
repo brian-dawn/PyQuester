@@ -21,7 +21,11 @@ class Level(object):
     def sunlight_color(self, color):
         self._sunlight_sprite.color = color
     
-    def __init__(self):
+    def __init__(self, z_index):
+
+        # The z index of this level, must be unique!
+        self.z_index = z_index
+
         # Populate a 2D list with tiles.
         self._tiles = []
         for i in xrange(Level.SIZE):

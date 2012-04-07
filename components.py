@@ -38,3 +38,9 @@ class CollisionComponent(Component):
         self.width = width
         self.height = height
 
+# TODO: Delete this, just modify the base system to only work on certain levels.
+class LevelComponent(Component):
+    ID = 5
+
+    def __init__(self, level_z_index):
+        self.z_index = level_z_index

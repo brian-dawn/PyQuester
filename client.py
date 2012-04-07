@@ -47,6 +47,7 @@ from tile import Tile
 from light import Light
 from level import Level
 
+import level_manager
 from entity import SystemManager
 from components import *
 from systems import *
@@ -72,6 +73,9 @@ def main():
     move_system = system_manager.add_system(MoveSystem(collision_system))
     draw_system = system_manager.add_system(DrawSystem(window))
 
+    level = Level(0)
+    level_manager.register_level(level)
+
     e = Entity(system_manager)
     e.add_component(PositionComponent(0, 0))
     e.add_component(VelocityComponent(0, 0))
@@ -90,8 +94,8 @@ def main():
     networking.register_messages()
     
     
-    #window.framerate_limit = 60
-    #window.vertical_sync_enabled = True
+    window.framerate_limit = 60
+    window.vertical_sync_enabled = True
     running = True
 
     old_direction = 0
@@ -110,7 +114,7 @@ def main():
     
     em = plugins.get_effect("fire").Effect(0, 0)
     #print dir(em)
-    level = Level()
+    
     plugins.get_worker("sample_worker").crap_work(level, 2, "stone_wall")
     while running:
 
@@ -182,10 +186,10 @@ def main():
         #window.draw(sprite)
         
         #Draw the tiles.
-        level.update()
-        level.draw_tiles(window)
+        level_manager.update_level(0)
+        level_manager.draw_level_diffuse(0, window)
         draw_system.draw_light_layer()
-        level.draw_lightmap(window)
+        level_manager.draw_level_lightmap(0, window)
         
         # Calculate mouse coordinates.
         xp = int(sf.Mouse.get_position(window)[0] + camera.x)

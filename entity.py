@@ -18,14 +18,17 @@ but if it is, we can redesign the bitstring class to allow for more.
 class Component(object):
     ID = -1
     
+
 # Base class new systems can extend from. A system operates on components.
 class System(object):
 
-    def _init(self):
-        # This will be assigned by the SystemManager later.
-        self.ID = -1
+    def _init(self, ID, level_z_index):
+        self.ID = ID
+
+        self.level_z_index = level_z_index
         
         # Stores all current entities in the system.
+        # The entities are effected by what level they exist in.
         self._entities = []
         
         # The bitstring that contains the components mapped to this system.
@@ -83,16 +86,18 @@ class System(object):
         for entity in self._entities:
             self.process(entity)
   
-# Handles a collection of systems. Only one instance is needed.      
+# Handles a collection of systems. Only one instance is needed.    
+# TODO: Maybe one instance for each level?  
 class SystemManager:
     
     def __init__(self):
         self._system_id_counter = -1
         self._systems = []
+
+        self.level_z_index = 0
         
-    def add_system(self, system):
-        system.ID = self._register_id()
-        system._init()
+    def add_system(self, system, level_z_index=0):
+        system._init(self._register_id(), level_z_index)
         self._systems.append(system)
         return system
         
@@ -183,6 +188,7 @@ class Entity:
         self._component_bitstring.add_to_set(component.ID)
 
 from bitstring import BitString
+import level_manager
 """
 
 sm = SystemManager()

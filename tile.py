@@ -32,7 +32,8 @@ class Tile(object):
         self._sprite = None
         self._set_texture(media.get_texture("tilegrass2"))
         
-
+        # Should the tile not be collidable at all?
+        self.has_collision = False
         
         # This stores the intensity of the sunlight in a 2d array. The
         # size is determined by the Light.SUBDIVIDE variable. This
